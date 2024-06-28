@@ -3,6 +3,8 @@ def ajuda_handler(bot, message):
 	msg = '''
 Olá, eu sou o Tony o assistente virtual da Comando!
 
+Você pode selecionar a opção desejada clicando nos botões do menu ou digitando os comando listado abaixo:
+
 Funcionando:
 
 ⚫/placa [PLACA] - Reterna a documentação da placa
