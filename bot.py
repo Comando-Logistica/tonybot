@@ -132,5 +132,7 @@ def handle_register(message):
     else:
         bot.reply_to(message, "Você não tem permissão para registrar usuários.")
 
+
+
 if __name__ == '__main__':
     bot.polling()
