@@ -30,6 +30,7 @@ def handle_start(message):
     #print(f'Checking permission for user {message.from_user.id} to use "start" command.')
     if has_permission(message.from_user.id, 'start'):
         start_handler(bot, message)
+        user_states.pop(message.from_user.id, None)
     else:
         bot.reply_to(message, f"Você não tem permissão para usar este comando. Seu ID é {message.from_user.id}")
         print(f"ID {message.from_user.id} sem permissão!")
@@ -39,6 +40,7 @@ def handle_ajuda(message):
     #print(f'Checking permission for user {message.from_user.id} to use "ajuda" command.')
     if has_permission(message.from_user.id, 'ajuda'):
         ajuda_handler(bot, message)
+        user_states.pop(message.from_user.id, None)
     else:
         bot.reply_to(message, "Você não tem permissão para usar este comando.")
 
@@ -62,6 +64,7 @@ def handle_apresentacao(call):
     if has_permission(call.from_user.id, 'apresentacao'):
         action = user_states.get(call.from_user.id, {}).get('action')
         send_doc_info(bot, call, action)
+        user_states.pop(call.from_user.id, None)
     else:
         bot.answer_callback_query(call.id, "Você não tem permissão para usar este comando.")
 
@@ -71,6 +74,7 @@ def handle_conduta(call):
     if has_permission(call.from_user.id, 'conduta'):
         action = user_states.get(call.from_user.id, {}).get('action')
         send_doc_info(bot, call, action)
+        user_states.pop(call.from_user.id, None) 
     else:
         bot.answer_callback_query(call.id, "Você não tem permissão para usar este comando.")
 
@@ -81,6 +85,7 @@ def handle_cartao_cnpj(call):
         action = user_states.get(call.from_user.id, {}).get('action')
         print(action)
         send_doc_info(bot, call, action)
+        user_states.pop(call.from_user.id, None) 
     else:
         bot.answer_callback_query(call.id, "Você não tem permissão para usar este comando.")
 
@@ -132,7 +137,11 @@ def handle_register(message):
     else:
         bot.reply_to(message, "Você não tem permissão para registrar usuários.")
 
-
+def main():
+    try:
+        bot.polling()
+    except:
+        main()
 
 if __name__ == '__main__':
-    bot.polling()
+    main()
