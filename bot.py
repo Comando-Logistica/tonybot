@@ -11,6 +11,7 @@ from handlers.placa_handler import placa_handler
 from handlers.motorista_handler import motorista_handler
 from handlers.ajuda_handler import ajuda_handler
 from data.user_management import has_permission, register_user, is_admin, load_users
+from handlers.documentos_handler import send_doc_info
 
 bot = telebot.TeleBot(TOKEN)
 user_states = {}
@@ -55,6 +56,33 @@ def handle_plate(message):
             user_states.pop(message.from_user.id, None)  # Resetar o estado do usuário
     else:
         bot.reply_to(message, "Você não tem permissão para usar este comando.")
+
+@bot.callback_query_handler(func=lambda call: user_states.get(call.from_user.id, {}).get('state') == 'Apresentação')
+def handle_apresentacao(call):
+    if has_permission(call.from_user.id, 'apresentacao'):
+        action = user_states.get(call.from_user.id, {}).get('action')
+        send_doc_info(bot, call, action)
+    else:
+        bot.answer_callback_query(call.id, "Você não tem permissão para usar este comando.")
+
+
+@bot.callback_query_handler(func=lambda call: user_states.get(call.from_user.id, {}).get('state') == 'Codigo de Conduta')
+def handle_conduta(call):
+    if has_permission(call.from_user.id, 'conduta'):
+        action = user_states.get(call.from_user.id, {}).get('action')
+        send_doc_info(bot, call, action)
+    else:
+        bot.answer_callback_query(call.id, "Você não tem permissão para usar este comando.")
+
+@bot.callback_query_handler(func=lambda call: user_states.get(call.from_user.id, {}).get('state') == 'Cartão CNPJ')
+def handle_cartao_cnpj(call):
+    print('cartao_cnpj')
+    if has_permission(call.from_user.id, 'cartao_cnpj'):
+        action = user_states.get(call.from_user.id, {}).get('action')
+        print(action)
+        send_doc_info(bot, call, action)
+    else:
+        bot.answer_callback_query(call.id, "Você não tem permissão para usar este comando.")
 
 
 @bot.message_handler(func=lambda message: user_states.get(message.from_user.id, {}).get('state') == 'Aguardando CPF')

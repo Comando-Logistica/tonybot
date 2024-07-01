@@ -10,7 +10,10 @@
             "message",
             "callback",
             "register",
-            "motorista"
+            "motorista",
+            "cartao_cnpj",
+            "conduta",
+            "apresentacao"
         ]
     },
     "5761621644": {
@@ -23,7 +26,10 @@
             "placa",
             "message",
             "callback",
-            "register"
+            "register",
+            "motorista",
+            "cartao_cnpj",
+            "conduta"
         ]
     }
 }

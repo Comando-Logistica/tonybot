@@ -29,7 +29,15 @@ def register_user(user_id, nome, cargo, privilege_level='admin', commands=["star
         'Nome': nome,
         'cargo': cargo,
         'privilege_level': 'admin',
-        'commands': ["start", "ajuda", "placa", "message", "callback", "register"] #commands
+        'commands': ["start",
+            "ajuda",
+            "placa",
+            "message",
+            "callback",
+            "register",
+            "motorista",
+            "cartao_cnpj",
+            "conduta"] #commands
     }
     save_users(users)
     #print(f"Usuário registrado: {users[user_id]}")
